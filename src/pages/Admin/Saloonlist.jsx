@@ -36,14 +36,11 @@
 
 // export default Saloonlist
 
-
-
 import React, { useContext, useEffect, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 
 const Saloonlist = () => {
   const { doctors, changeAvailability, aToken, getAllD } = useContext(AdminContext);
-
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   useEffect(() => {
@@ -92,15 +89,21 @@ const Saloonlist = () => {
       {/* Modal */}
       {selectedDoctor && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto relative">
+          <div className="bg-white rounded-xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative shadow-lg">
             <button
               onClick={closeModal}
-              className="absolute top-2 right-3 text-gray-600 text-xl"
+              className="absolute top-3 right-4 text-gray-600 text-2xl font-bold hover:text-red-500"
             >
               &times;
             </button>
-            <img src={selectedDoctor.image} alt="doctor" className="w-full rounded-lg mb-4" />
-            <h2 className="text-xl font-semibold mb-2">{selectedDoctor.name}</h2>
+
+            <img
+              src={selectedDoctor.image}
+              alt="doctor"
+              className="w-full h-64 object-cover rounded-lg mb-4"
+            />
+
+            <h2 className="text-2xl font-semibold mb-3">{selectedDoctor.name}</h2>
             <p><strong>Email:</strong> {selectedDoctor.email}</p>
             <p><strong>Degree:</strong> {selectedDoctor.degree}</p>
             <p><strong>Speciality:</strong> {selectedDoctor.speciality?.label || 'N/A'}</p>
@@ -108,9 +111,26 @@ const Saloonlist = () => {
             <p><strong>Experience:</strong> {selectedDoctor.experience?.join(', ')}</p>
             <p><strong>Fees:</strong> ₹{selectedDoctor.fees}</p>
             <p><strong>Services:</strong> {selectedDoctor.services?.join(', ')}</p>
-            <p><strong>Address:</strong> {selectedDoctor.address?.line1}, {selectedDoctor.address?.city}</p>
             <p><strong>Available:</strong> {selectedDoctor.available ? 'Yes' : 'No'}</p>
             <p><strong>Date Joined:</strong> {new Date(selectedDoctor.date).toLocaleDateString()}</p>
+
+            {selectedDoctor.address && (
+              <>
+                <p>
+                  <strong>Address:</strong> {selectedDoctor.address.line1}, {selectedDoctor.address.city}
+                </p>
+                {selectedDoctor.address.latitude && selectedDoctor.address.longitude && (
+                  <a
+                    href={`https://www.google.com/maps?q=${selectedDoctor.address.latitude},${selectedDoctor.address.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  >
+                    View on Google Maps
+                  </a>
+                )}
+              </>
+            )}
           </div>
         </div>
       )}
