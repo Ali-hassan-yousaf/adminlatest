@@ -1,80 +1,35 @@
 
 
-// import React, { useContext, useEffect } from 'react'
-// import { AdminContext } from '../../context/AdminContext'
-
-// const Saloonlist = () => {
-
-//   const { doctors, changeAvailability , aToken , getAllD} = useContext(AdminContext)
-
-//   useEffect(() => {
-//     if (aToken) {
-//         getAllD()
-//     }
-// }, [aToken])
-
-//   return (
-//     <div className='m-5 max-h-[90vh] overflow-y-scroll'>
-//       <h1 className='text-lg font-medium'>Manage Doctors</h1>
-//       <div className='w-full flex flex-wrap gap-4 pt-5 gap-y-6'>
-//         {doctors.map((item, index) => (
-//           <div className='border border-[#C9D8FF] rounded-xl max-w-56 overflow-hidden cursor-pointer group' key={index}>
-//             <img className='bg-[#EAEFFF] group-hover:bg-primary transition-all duration-500' src={item.image} alt="" />
-//             <div className='p-4'>
-//               <p className='text-[#262626] text-lg font-medium'>{item.name}</p>
-//              <div className='mt-2 flex items-center gap-1 text-sm'>
-//                 <input onChange={()=>changeAvailability(item._id)} type="checkbox" checked={item.available} />
-//                 <p>Available</p>
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Saloonlist
-
-import React, { useContext, useEffect, useState } from 'react';
-import { AdminContext } from '../../context/AdminContext';
+import React, { useContext, useEffect, useState } from 'react'
+import { AdminContext } from '../../context/AdminContext'
 
 const Saloonlist = () => {
-  const { doctors, changeAvailability, aToken, getAllD } = useContext(AdminContext);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const { doctors, changeAvailability, aToken, getAllD } = useContext(AdminContext)
+
+  const [selectedDoctor, setSelectedDoctor] = useState(null)
 
   useEffect(() => {
     if (aToken) {
-      getAllD();
+      getAllD()
     }
-  }, [aToken]);
-
-  const handleDoctorClick = (doctor) => {
-    setSelectedDoctor(doctor);
-  };
-
-  const closeModal = () => {
-    setSelectedDoctor(null);
-  };
+  }, [aToken])
 
   return (
-    <div className="m-5 max-h-[90vh] overflow-y-scroll">
-      <h1 className="text-lg font-medium">Manage Doctors</h1>
-      <div className="w-full flex flex-wrap gap-4 pt-5 gap-y-6">
+    <div className='m-5 max-h-[90vh] overflow-y-scroll relative'>
+      <h1 className='text-lg font-medium'>Manage Doctors</h1>
+      <div className='w-full flex flex-wrap gap-4 pt-5 gap-y-6'>
         {doctors.map((item, index) => (
           <div
+            className='border border-[#C9D8FF] rounded-xl max-w-56 overflow-hidden cursor-pointer group'
             key={index}
-            className="border border-[#C9D8FF] rounded-xl max-w-56 overflow-hidden cursor-pointer group"
-            onClick={() => handleDoctorClick(item)}
+            onClick={() => setSelectedDoctor(item)}
           >
-            <img className="bg-[#EAEFFF] group-hover:bg-primary transition-all duration-500" src={item.image} alt="" />
-            <div className="p-4">
-              <p className="text-[#262626] text-lg font-medium">{item.name}</p>
-              <div
-                className="mt-2 flex items-center gap-1 text-sm"
-                onClick={(e) => e.stopPropagation()}
-              >
+            <img className='bg-[#EAEFFF] group-hover:bg-primary transition-all duration-500' src={item.image} alt="" />
+            <div className='p-4'>
+              <p className='text-[#262626] text-lg font-medium'>{item.name}</p>
+              <div className='mt-2 flex items-center gap-1 text-sm'>
                 <input
+                  onClick={(e) => e.stopPropagation()}
                   onChange={() => changeAvailability(item._id)}
                   type="checkbox"
                   checked={item.available}
@@ -86,56 +41,52 @@ const Saloonlist = () => {
         ))}
       </div>
 
-      {/* Modal */}
+      {/* MODAL */}
       {selectedDoctor && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative shadow-lg">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
             <button
-              onClick={closeModal}
-              className="absolute top-3 right-4 text-gray-600 text-2xl font-bold hover:text-red-500"
+              onClick={() => setSelectedDoctor(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold"
             >
-              &times;
+              ×
             </button>
-
-            <img
-              src={selectedDoctor.image}
-              alt="doctor"
-              className="w-full h-64 object-cover rounded-lg mb-4"
-            />
-
-            <h2 className="text-2xl font-semibold mb-3">{selectedDoctor.name}</h2>
+            {/* <img src={selectedDoctor.image} alt="" className="w-full h-48 object-cover rounded-lg mb-4" /> */}
+            <h2 className="text-2xl font-semibold mb-2">{selectedDoctor.name}</h2>
             <p><strong>Email:</strong> {selectedDoctor.email}</p>
-            <p><strong>Degree:</strong> {selectedDoctor.degree}</p>
-            <p><strong>Speciality:</strong> {selectedDoctor.speciality?.label || 'N/A'}</p>
+            <p><strong>Location:</strong> {selectedDoctor.speciality?.label || selectedDoctor.speciality}</p>
+            {/* <p><strong>Degree:</strong> {selectedDoctor.degree}</p> */}
+            {/* <p><strong>Experience:</strong> {selectedDoctor.experience.join(', ')}</p> */}
             <p><strong>About:</strong> {selectedDoctor.about}</p>
-            <p><strong>Experience:</strong> {selectedDoctor.experience?.join(', ')}</p>
-            <p><strong>Fees:</strong> ₹{selectedDoctor.fees}</p>
-            <p><strong>Services:</strong> {selectedDoctor.services?.join(', ')}</p>
-            <p><strong>Available:</strong> {selectedDoctor.available ? 'Yes' : 'No'}</p>
-            <p><strong>Date Joined:</strong> {new Date(selectedDoctor.date).toLocaleDateString()}</p>
+            <p><strong>Fees:</strong> RS. {selectedDoctor.fees}</p>
+            <div className="mt-2">
+  <strong>Payment:</strong>
+  <ul className="list-disc list-inside ml-2">
+    {selectedDoctor.services.map((s, i) => (
+      <li key={i}>
+        {s.service} — {s.fee}
+      </li>
+    ))}
+  </ul>
+</div>
+<p><strong>Address: </strong>
+  <a
+    href={selectedDoctor.address?.line1}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-600 underline"
+  >
+    View on Google Maps
+  </a>
+</p>
 
-            {selectedDoctor.address && (
-              <>
-                <p>
-                  <strong>Address:</strong> {selectedDoctor.address.line1}, {selectedDoctor.address.city}
-                </p>
-                {selectedDoctor.address.latitude && selectedDoctor.address.longitude && (
-                  <a
-                    href={`https://www.google.com/maps?q=${selectedDoctor.address.latitude},${selectedDoctor.address.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                  >
-                    View on Google Maps
-                  </a>
-                )}
-              </>
-            )}
+            {/* <p><strong>Workers:</strong> {selectedDoctor.workers.length}</p> */}
+            <p><strong>Available:</strong> {selectedDoctor.available ? 'Yes' : 'No'}</p>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Saloonlist;
+export default Saloonlist
