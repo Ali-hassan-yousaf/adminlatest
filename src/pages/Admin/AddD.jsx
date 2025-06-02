@@ -158,7 +158,7 @@ const AddD = () => {
       {/* Create Precaution Form */}
       <section className="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6">
         <form onSubmit={handleAddWorker} className="space-y-5">
-          <h2 className="text-xl font-bold text-gray-900 text-center">Share New Precaution</h2>
+          <h2 className="text-xl font-bold text-gray-900 text-center">Share New Precaution & Risk</h2>
 
           <div className="space-y-5">
             {/* Shop Name */}
