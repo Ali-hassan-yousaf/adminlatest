@@ -68,6 +68,8 @@ import DProfile from './pages/Saloon/DProfile';
 import Meal from './pages/Admin/Meal';
 
 
+import Meal1 from './pages/Doctor/Profile';
+
 
 const App = () => {
 
@@ -90,6 +92,8 @@ const App = () => {
           <Route path='/saloon-appointments' element={<DAppointments />} />
           <Route path='/saloon-profile' element={<DProfile />} />
           <Route path="/meal" element={<Meal />} />
+          <Route path="/community" element={<Meal1 />} />
+
         </Routes>
       </div>
     </div>
