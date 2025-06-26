@@ -70,361 +70,361 @@
 // // export default Login
 
 
-// import axios from 'axios'
-// import React, { useContext, useState } from 'react'
-// import { DContext } from '../context/DContext'
-// import { AdminContext } from '../context/AdminContext'
-// import { AppContext } from '../context/AppContext'
-// import { toast } from 'react-toastify'
-// import { assets } from '../assets/assets'
+// // import axios from 'axios'
+// // import React, { useContext, useState } from 'react'
+// // import { DContext } from '../context/DContext'
+// // import { AdminContext } from '../context/AdminContext'
+// // import { AppContext } from '../context/AppContext'
+// // import { toast } from 'react-toastify'
+// // import { assets } from '../assets/assets'
 
-// const Login = () => {
-//   const [state, setState] = useState('Admin')
-//   const [showSignUp, setShowSignUp] = useState(false)
+// // const Login = () => {
+// //   const [state, setState] = useState('Admin')
+// //   const [showSignUp, setShowSignUp] = useState(false)
   
-//   // Add Doctor State (from AddD component)
-//   const [docImg, setDocImg] = useState(null)
-//   const [email, setEmail] = useState("")
-//   const [password, setPassword] = useState("")
-//   const [fees, setFees] = useState("")
-//   const [about, setAbout] = useState("")
-//   const [name, setName] = useState("")
-//   const [address1, setAddress1] = useState("")
-//   const [services, setServices] = useState([])
-//   const [workers, setWorkers] = useState([""])
+// //   // Add Doctor State (from AddD component)
+// //   const [docImg, setDocImg] = useState(null)
+// //   const [email, setEmail] = useState("")
+// //   const [password, setPassword] = useState("")
+// //   const [fees, setFees] = useState("")
+// //   const [about, setAbout] = useState("")
+// //   const [name, setName] = useState("")
+// //   const [address1, setAddress1] = useState("")
+// //   const [services, setServices] = useState([])
+// //   const [workers, setWorkers] = useState([""])
   
-//   // Context values
-//   const backendUrl = import.meta.env.VITE_BACKEND_URL
-//   const { setDToken } = useContext(DContext)
-//   const { setAToken, aToken } = useContext(AdminContext)
-//   const { backendUrl: appBackendUrl } = useContext(AppContext)
+// //   // Context values
+// //   const backendUrl = import.meta.env.VITE_BACKEND_URL
+// //   const { setDToken } = useContext(DContext)
+// //   const { setAToken, aToken } = useContext(AdminContext)
+// //   const { backendUrl: appBackendUrl } = useContext(AppContext)
 
-//   // Hardcoded values (from AddD)
-//   const speciality = "NAN"
-//   const degree = "nab"
-//   const experience = "NAN"
+// //   // Hardcoded values (from AddD)
+// //   const speciality = "NAN"
+// //   const degree = "nab"
+// //   const experience = "NAN"
 
-//   // Login Handler (unchanged)
-//   const onSubmitHandler = async (event) => {
-//     event.preventDefault();
-//     try {
-//       const endpoint = state === 'Admin' 
-//         ? '/api/admin/login' 
-//         : '/api/doctor/login'
+// //   // Login Handler (unchanged)
+// //   const onSubmitHandler = async (event) => {
+// //     event.preventDefault();
+// //     try {
+// //       const endpoint = state === 'Admin' 
+// //         ? '/api/admin/login' 
+// //         : '/api/doctor/login'
       
-//       const { data } = await axios.post(backendUrl + endpoint, { email, password })
+// //       const { data } = await axios.post(backendUrl + endpoint, { email, password })
 
-//       if (data.success) {
-//         const tokenKey = state === 'Admin' ? 'aToken' : 'dToken'
-//         localStorage.setItem(tokenKey, data.token)
-//         state === 'Admin' ? setAToken(data.token) : setDToken(data.token)
-//         toast.success(`${state} login successful`)
-//       }
-//     } catch (error) {
-//       toast.error(error.response?.data?.message || 'Login failed')
-//     }
-//   }
+// //       if (data.success) {
+// //         const tokenKey = state === 'Admin' ? 'aToken' : 'dToken'
+// //         localStorage.setItem(tokenKey, data.token)
+// //         state === 'Admin' ? setAToken(data.token) : setDToken(data.token)
+// //         toast.success(`${state} login successful`)
+// //       }
+// //     } catch (error) {
+// //       toast.error(error.response?.data?.message || 'Login failed')
+// //     }
+// //   }
 
-//   // Add Doctor Handler (from AddD unchanged)
-//   const handleAddDoctor = async (event) => {
-//     event.preventDefault()
-//     try {
-//       if (!docImg) return toast.error("Image Not Selected")
+// //   // Add Doctor Handler (from AddD unchanged)
+// //   const handleAddDoctor = async (event) => {
+// //     event.preventDefault()
+// //     try {
+// //       if (!docImg) return toast.error("Image Not Selected")
 
-//       const formData = new FormData()
-//       formData.append("image", docImg)
-//       formData.append("name", name)
-//       formData.append("email", email)
-//       formData.append("password", password)
-//       formData.append("experience", experience)
-//       formData.append("fees", Number(fees))
-//       formData.append("about", about)
-//       formData.append("speciality", speciality)
-//       formData.append("degree", degree)
-//       formData.append("address", JSON.stringify({ line1: address1 }))
-//       formData.append("services", JSON.stringify(services))
-//       formData.append("workers", JSON.stringify(workers))
+// //       const formData = new FormData()
+// //       formData.append("image", docImg)
+// //       formData.append("name", name)
+// //       formData.append("email", email)
+// //       formData.append("password", password)
+// //       formData.append("experience", experience)
+// //       formData.append("fees", Number(fees))
+// //       formData.append("about", about)
+// //       formData.append("speciality", speciality)
+// //       formData.append("degree", degree)
+// //       formData.append("address", JSON.stringify({ line1: address1 }))
+// //       formData.append("services", JSON.stringify(services))
+// //       formData.append("workers", JSON.stringify(workers))
 
-//       const { data } = await axios.post(appBackendUrl + "/api/admin/add-Saloon", formData, {
-//         headers: { aToken },
-//       })
+// //       const { data } = await axios.post(appBackendUrl + "/api/admin/add-Saloon", formData, {
+// //         headers: { aToken },
+// //       })
 
-//       if (data.success) {
-//         toast.success(data.message)
-//         // Reset all fields (from AddD)
-//         setDocImg(null)
-//         setEmail("")
-//         setName("")
-//         setPassword("")
-//         setAddress1("")
-//         setAbout("")
-//         setFees("")
-//         setServices([])
-//         setWorkers([""])
-//         setShowSignUp(false)
-//       }
-//     } catch (error) {
-//       toast.error(error.message)
-//     }
-//   }
+// //       if (data.success) {
+// //         toast.success(data.message)
+// //         // Reset all fields (from AddD)
+// //         setDocImg(null)
+// //         setEmail("")
+// //         setName("")
+// //         setPassword("")
+// //         setAddress1("")
+// //         setAbout("")
+// //         setFees("")
+// //         setServices([])
+// //         setWorkers([""])
+// //         setShowSignUp(false)
+// //       }
+// //     } catch (error) {
+// //       toast.error(error.message)
+// //     }
+// //   }
 
-//   // Location Handler (from AddD)
-//   const getLocation = () => {
-//     if (navigator.geolocation) {
-//       navigator.geolocation.getCurrentPosition(
-//         (position) => {
-//           const link = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`
-//           setAddress1(link)
-//         },
-//         () => alert("Error: Unable to fetch your location.")
-//       )
-//     } else {
-//       alert("Error: Geolocation is not supported by your browser.")
-//     }
-//   }
+// //   // Location Handler (from AddD)
+// //   const getLocation = () => {
+// //     if (navigator.geolocation) {
+// //       navigator.geolocation.getCurrentPosition(
+// //         (position) => {
+// //           const link = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`
+// //           setAddress1(link)
+// //         },
+// //         () => alert("Error: Unable to fetch your location.")
+// //       )
+// //     } else {
+// //       alert("Error: Geolocation is not supported by your browser.")
+// //     }
+// //   }
 
-//   // Service/Worker Handlers (from AddD)
-//   const handleAddService = () => setServices([...services, { service: "", fee: "" }])
-//   const handleServiceChange = (e, index) => {
-//     const updated = [...services]
-//     updated[index].fee = e.target.value
-//     setServices(updated)
-//   }
-//   const handleServiceNameChange = (e, index) => {
-//     const updated = [...services]
-//     updated[index].service = e.target.value
-//     setServices(updated)
-//   }
-//   const handleAddWorker = () => setWorkers([...workers, ""])
-//   const handleWorkerChange = (e, index) => {
-//     const updated = [...workers]
-//     updated[index] = e.target.value
-//     setWorkers(updated)
-//   }
-//   const handleDeleteService = (index) => setServices(services.filter((_, i) => i !== index))
-//   const handleDeleteWorker = (index) => setWorkers(workers.filter((_, i) => i !== index))
+// //   // Service/Worker Handlers (from AddD)
+// //   const handleAddService = () => setServices([...services, { service: "", fee: "" }])
+// //   const handleServiceChange = (e, index) => {
+// //     const updated = [...services]
+// //     updated[index].fee = e.target.value
+// //     setServices(updated)
+// //   }
+// //   const handleServiceNameChange = (e, index) => {
+// //     const updated = [...services]
+// //     updated[index].service = e.target.value
+// //     setServices(updated)
+// //   }
+// //   const handleAddWorker = () => setWorkers([...workers, ""])
+// //   const handleWorkerChange = (e, index) => {
+// //     const updated = [...workers]
+// //     updated[index] = e.target.value
+// //     setWorkers(updated)
+// //   }
+// //   const handleDeleteService = (index) => setServices(services.filter((_, i) => i !== index))
+// //   const handleDeleteWorker = (index) => setWorkers(workers.filter((_, i) => i !== index))
 
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
-//       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8 space-y-6">
-//         {!showSignUp ? (
-//           <>
-//             <div className="flex gap-4 mb-8">
-//               <button
-//                 type="button"
-//                 onClick={() => setState('Admin')}
-//                 className={`flex-1 py-3 rounded-xl font-semibold ${
-//                   state === 'Admin' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500'
-//                 }`}
-//               >
-//                 Admin Login
-//               </button>
-//               <button
-//                 type="button"
-//                 onClick={() => setState('Doctor')}
-//                 className={`flex-1 py-3 rounded-xl font-semibold ${
-//                   state === 'Doctor' ? 'bg-teal-600 text-white' : 'bg-gray-100 text-gray-500'
-//                 }`}
-//               >
-//                 Doctor Login
-//               </button>
-//             </div>
+// //   return (
+// //     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
+// //       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8 space-y-6">
+// //         {!showSignUp ? (
+// //           <>
+// //             <div className="flex gap-4 mb-8">
+// //               <button
+// //                 type="button"
+// //                 onClick={() => setState('Admin')}
+// //                 className={`flex-1 py-3 rounded-xl font-semibold ${
+// //                   state === 'Admin' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500'
+// //                 }`}
+// //               >
+// //                 Admin Login
+// //               </button>
+// //               <button
+// //                 type="button"
+// //                 onClick={() => setState('Doctor')}
+// //                 className={`flex-1 py-3 rounded-xl font-semibold ${
+// //                   state === 'Doctor' ? 'bg-teal-600 text-white' : 'bg-gray-100 text-gray-500'
+// //                 }`}
+// //               >
+// //                 Doctor Login
+// //               </button>
+// //             </div>
 
-//             <form onSubmit={onSubmitHandler} className="space-y-4">
-//               <h2 className="text-2xl font-bold text-center">{state} Login</h2>
+// //             <form onSubmit={onSubmitHandler} className="space-y-4">
+// //               <h2 className="text-2xl font-bold text-center">{state} Login</h2>
               
-//               <input
-//                 type="email"
-//                 placeholder="Email"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//                 className="w-full p-2 border rounded"
-//                 required
-//               />
+// //               <input
+// //                 type="email"
+// //                 placeholder="Email"
+// //                 value={email}
+// //                 onChange={(e) => setEmail(e.target.value)}
+// //                 className="w-full p-2 border rounded"
+// //                 required
+// //               />
               
-//               <input
-//                 type="password"
-//                 placeholder="Password"
-//                 value={password}
-//                 onChange={(e) => setPassword(e.target.value)}
-//                 className="w-full p-2 border rounded"
-//                 required
-//               />
+// //               <input
+// //                 type="password"
+// //                 placeholder="Password"
+// //                 value={password}
+// //                 onChange={(e) => setPassword(e.target.value)}
+// //                 className="w-full p-2 border rounded"
+// //                 required
+// //               />
               
-//               <button
-//                 type="submit"
-//                 className="w-full p-2 bg-indigo-600 text-white rounded"
-//               >
-//                 Login
-//               </button>
+// //               <button
+// //                 type="submit"
+// //                 className="w-full p-2 bg-indigo-600 text-white rounded"
+// //               >
+// //                 Login
+// //               </button>
 
-//               {state === 'Doctor' && (
-//                 <button
-//                   type="button"
-//                   onClick={() => setShowSignUp(true)}
-//                   className="w-full p-2 text-blue-600 underline"
-//                 >
-//                   Create New Account
-//                 </button>
-//               )}
-//             </form>
-//           </>
-//         ) : (
-//           // Start of AddD component JSX
-//           <form onSubmit={handleAddDoctor} className="m-5 w-full">
-//             <p className="mb-3 text-2xl font-semibold text-gray-700">Add Doctor</p>
-//             <div className="bg-white px-8 py-8 border rounded-xl w-full shadow-lg">
-//               <div className="flex items-center gap-4 mb-8 text-gray-500">
-//                 <label htmlFor="doc-img">
-//                   <img
-//                     className="w-24 h-24 bg-gray-100 rounded-full cursor-pointer object-cover"
-//                     src={docImg ? URL.createObjectURL(docImg) : assets.upload_area}
-//                     alt="Doctor"
-//                   />
-//                 </label>
-//                 <input
-//                   onChange={(e) => setDocImg(e.target.files[0])}
-//                   type="file"
-//                   id="doc-img"
-//                   hidden
-//                 />
-//                 <p className="text-sm">Upload Doctor Picture</p>
-//               </div>
-//               <div className="space-y-6">
-//                 <input
-//                   type="text"
-//                   placeholder="Doctor Name"
-//                   value={name}
-//                   onChange={(e) => setName(e.target.value)}
-//                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                 />
-//                 <input
-//                   type="email"
-//                   placeholder="Email"
-//                   value={email}
-//                   onChange={(e) => setEmail(e.target.value)}
-//                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                 />
-//                 <input
-//                   type="password"
-//                   placeholder="Password"
-//                   value={password}
-//                   onChange={(e) => setPassword(e.target.value)}
-//                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                 />
-//                 <textarea
-//                   placeholder="About Doctor"
-//                   value={about}
-//                   onChange={(e) => setAbout(e.target.value)}
-//                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                   rows={4}
-//                 />
-//                 <div>
-//                   <button
-//                     type="button"
-//                     onClick={getLocation}
-//                     className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                   >
-//                     Get Current Location
-//                   </button>
-//                   <input
-//                     type="text"
-//                     placeholder="Address"
-//                     value={address1}
-//                     onChange={(e) => setAddress1(e.target.value)}
-//                     className="w-full mt-3 py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                   />
-//                 </div>
+// //               {state === 'Doctor' && (
+// //                 <button
+// //                   type="button"
+// //                   onClick={() => setShowSignUp(true)}
+// //                   className="w-full p-2 text-blue-600 underline"
+// //                 >
+// //                   Create New Account
+// //                 </button>
+// //               )}
+// //             </form>
+// //           </>
+// //         ) : (
+// //           // Start of AddD component JSX
+// //           <form onSubmit={handleAddDoctor} className="m-5 w-full">
+// //             <p className="mb-3 text-2xl font-semibold text-gray-700">Add Doctor</p>
+// //             <div className="bg-white px-8 py-8 border rounded-xl w-full shadow-lg">
+// //               <div className="flex items-center gap-4 mb-8 text-gray-500">
+// //                 <label htmlFor="doc-img">
+// //                   <img
+// //                     className="w-24 h-24 bg-gray-100 rounded-full cursor-pointer object-cover"
+// //                     src={docImg ? URL.createObjectURL(docImg) : assets.upload_area}
+// //                     alt="Doctor"
+// //                   />
+// //                 </label>
+// //                 <input
+// //                   onChange={(e) => setDocImg(e.target.files[0])}
+// //                   type="file"
+// //                   id="doc-img"
+// //                   hidden
+// //                 />
+// //                 <p className="text-sm">Upload Doctor Picture</p>
+// //               </div>
+// //               <div className="space-y-6">
+// //                 <input
+// //                   type="text"
+// //                   placeholder="Doctor Name"
+// //                   value={name}
+// //                   onChange={(e) => setName(e.target.value)}
+// //                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                 />
+// //                 <input
+// //                   type="email"
+// //                   placeholder="Email"
+// //                   value={email}
+// //                   onChange={(e) => setEmail(e.target.value)}
+// //                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                 />
+// //                 <input
+// //                   type="password"
+// //                   placeholder="Password"
+// //                   value={password}
+// //                   onChange={(e) => setPassword(e.target.value)}
+// //                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                 />
+// //                 <textarea
+// //                   placeholder="About Doctor"
+// //                   value={about}
+// //                   onChange={(e) => setAbout(e.target.value)}
+// //                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                   rows={4}
+// //                 />
+// //                 <div>
+// //                   <button
+// //                     type="button"
+// //                     onClick={getLocation}
+// //                     className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                   >
+// //                     Get Current Location
+// //                   </button>
+// //                   <input
+// //                     type="text"
+// //                     placeholder="Address"
+// //                     value={address1}
+// //                     onChange={(e) => setAddress1(e.target.value)}
+// //                     className="w-full mt-3 py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                   />
+// //                 </div>
 
 
-//                 <input
-//                   type="text"
-//                   placeholder="location Name"
-//                   value={speciality}
-//                   onChange={(e) => setsp(e.target.value)}
-//                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                 />
+// //                 <input
+// //                   type="text"
+// //                   placeholder="location Name"
+// //                   value={speciality}
+// //                   onChange={(e) => setsp(e.target.value)}
+// //                   className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                 />
 
-//                 <div className="space-y-4">
-//                   <button
-//                     type="button"
-//                     onClick={handleAddService}
-//                     className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
-//                   >
-//                     Add Payment Method
-//                   </button>
-//                   {services.map((service, index) => (
-//                     <div key={index} className="flex gap-4">
-//                       <input
-//                         type="text"
-//                         placeholder="JazzCash (0300456789)"
-//                         value={service.service}
-//                         onChange={(e) => handleServiceNameChange(e, index)}
-//                         className="w-1/2 py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                       />
-//                       <input
-//                         type="number"
-//                         placeholder="Service Fee"
-//                         value={service.fee}
-//                         onChange={(e) => handleServiceChange(e, index)}
-//                         className="w-1/2 py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                       />
-//                       <button
-//                         type="button"
-//                         onClick={() => handleDeleteService(index)}
-//                         className="text-red-500 hover:text-red-700"
-//                       >
-//                         Delete
-//                       </button>
-//                     </div>
-//                   ))}
-//                 </div>
+// //                 <div className="space-y-4">
+// //                   <button
+// //                     type="button"
+// //                     onClick={handleAddService}
+// //                     className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+// //                   >
+// //                     Add Payment Method
+// //                   </button>
+// //                   {services.map((service, index) => (
+// //                     <div key={index} className="flex gap-4">
+// //                       <input
+// //                         type="text"
+// //                         placeholder="JazzCash (0300456789)"
+// //                         value={service.service}
+// //                         onChange={(e) => handleServiceNameChange(e, index)}
+// //                         className="w-1/2 py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                       />
+// //                       <input
+// //                         type="number"
+// //                         placeholder="Service Fee"
+// //                         value={service.fee}
+// //                         onChange={(e) => handleServiceChange(e, index)}
+// //                         className="w-1/2 py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                       />
+// //                       <button
+// //                         type="button"
+// //                         onClick={() => handleDeleteService(index)}
+// //                         className="text-red-500 hover:text-red-700"
+// //                       >
+// //                         Delete
+// //                       </button>
+// //                     </div>
+// //                   ))}
+// //                 </div>
 
-//                 <div className="space-y-4">
-//                   <button
-//                     type="button"
-//                     onClick={handleAddWorker}
-//                     className="py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-//                   >
-//                     Add Doctor Phone Number 
-//                   </button>
-//                   {workers.map((worker, index) => (
-//                     <div key={index} className="flex gap-4">
-//                       <input
-//                         type="text"
-//                         placeholder="0333456789"
-//                         value={worker}
-//                         onChange={(e) => handleWorkerChange(e, index)}
-//                         className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                       />
-//                       <button
-//                         type="button"
-//                         onClick={() => handleDeleteWorker(index)}
-//                         className="text-red-500 hover:text-red-700"
-//                       >
-//                         Delete
-//                       </button>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
+// //                 <div className="space-y-4">
+// //                   <button
+// //                     type="button"
+// //                     onClick={handleAddWorker}
+// //                     className="py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+// //                   >
+// //                     Add Doctor Phone Number 
+// //                   </button>
+// //                   {workers.map((worker, index) => (
+// //                     <div key={index} className="flex gap-4">
+// //                       <input
+// //                         type="text"
+// //                         placeholder="0333456789"
+// //                         value={worker}
+// //                         onChange={(e) => handleWorkerChange(e, index)}
+// //                         className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //                       />
+// //                       <button
+// //                         type="button"
+// //                         onClick={() => handleDeleteWorker(index)}
+// //                         className="text-red-500 hover:text-red-700"
+// //                       >
+// //                         Delete
+// //                       </button>
+// //                     </div>
+// //                   ))}
+// //                 </div>
+// //               </div>
 
-//               <button
-//                 type="submit"
-//                 className="mt-6 py-3 px-6 bg-blue-600 text-white text-xl font-semibold rounded-lg w-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-//               >
-//                 Add Doctor
-//               </button>
-//             </div>
-//           </form>
-//           // End of AddD component JSX
-//         )}
-//       </div>
-//     </div>
-//   )
-// }
+// //               <button
+// //                 type="submit"
+// //                 className="mt-6 py-3 px-6 bg-blue-600 text-white text-xl font-semibold rounded-lg w-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+// //               >
+// //                 Add Doctor
+// //               </button>
+// //             </div>
+// //           </form>
+// //           // End of AddD component JSX
+// //         )}
+// //       </div>
+// //     </div>
+// //   )
+// // }
 
-// export default Login
+// // export default Login
 
 import axios from 'axios'
 import React, { useContext, useState } from 'react'
@@ -437,6 +437,11 @@ import { assets } from '../assets/assets'
 const Login = () => {
   const [state, setState] = useState('Admin')
   const [showSignUp, setShowSignUp] = useState(false)
+  // Password reset states
+  const [resetStep, setResetStep] = useState(0) // 0: email, 1: otp+newpass
+  const [resetEmail, setResetEmail] = useState('')
+  const [resetOtp, setResetOtp] = useState('')
+  const [resetNewPassword, setResetNewPassword] = useState('')
 
   // Add Doctor State
   const [docImg, setDocImg] = useState(null)
@@ -466,7 +471,6 @@ const Login = () => {
     try {
       const endpoint = state === 'Admin' ? '/api/admin/login' : '/api/doctor/login'
       const { data } = await axios.post(backendUrl + endpoint, { email, password })
-
       if (data.success) {
         const tokenKey = state === 'Admin' ? 'aToken' : 'dToken'
         localStorage.setItem(tokenKey, data.token)
@@ -477,6 +481,47 @@ const Login = () => {
       }
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed')
+    }
+  }
+
+  // Doctor Password Reset Handlers
+  const handleSendOtp = async (e) => {
+    e.preventDefault()
+    try {
+      if (!resetEmail) return toast.error('Please enter your email')
+      const { data } = await axios.post(backendUrl + '/api/doctor/get-otp', { email: resetEmail })
+      if (data.success) {
+        toast.success('OTP sent to your email')
+        setResetStep(1)
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to send OTP')
+    }
+  }
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault()
+    try {
+      if (!resetEmail || !resetOtp || !resetNewPassword) return toast.error('Please fill all fields')
+      const { data } = await axios.post(backendUrl + '/api/doctor/reset-password', {
+        email: resetEmail,
+        otp: resetOtp,
+        newPassword: resetNewPassword,
+      })
+      if (data.success) {
+        toast.success('Password reset successful')
+        setState('Doctor')
+        setResetStep(0)
+        setResetEmail('')
+        setResetOtp('')
+        setResetNewPassword('')
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to reset password')
     }
   }
 
@@ -565,70 +610,151 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-teal-50 flex items-center justify-center p-4">
       {!showSignUp ? (
         <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
-          <h2 className="text-3xl font-bold text-center text-gray-800">{state} Login</h2>
-          <div className="flex gap-4 mb-6">
-            <button
-              type="button"
-              onClick={() => setState('Admin')}
-              className={`flex-1 py-2.5 rounded-lg font-medium transition-all duration-200 ${
-                state === 'Admin'
-                  ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Admin
-            </button>
-            <button
-              type="button"
-              onClick={() => setState('Doctor')}
-              className={`flex-1 py-2.5 rounded-lg font-medium transition-all duration-200 ${
-                state === 'Doctor'
-                  ? 'bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-md'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Doctor
-            </button>
-          </div>
-          <form onSubmit={onSubmitHandler} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-indigo-600 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200"
-            >
-              Login
-            </button>
-            {state === 'Doctor' && (
+          {state !== 'Reset Password' ? (
+            <>
+              <h2 className="text-3xl font-bold text-center text-gray-800">{state} Login</h2>
+              <div className="flex gap-4 mb-6">
+                <button
+                  type="button"
+                  onClick={() => setState('Admin')}
+                  className={`flex-1 py-2.5 rounded-lg font-medium transition-all duration-200 ${
+                    state === 'Admin'
+                      ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  Admin
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setState('Doctor')}
+                  className={`flex-1 py-2.5 rounded-lg font-medium transition-all duration-200 ${
+                    state === 'Doctor'
+                      ? 'bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  Doctor
+                </button>
+              </div>
+              <form onSubmit={onSubmitHandler} className="space-y-5">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                  <input
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-indigo-600 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200"
+                >
+                  Login
+                </button>
+                {state === 'Doctor' && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setShowSignUp(true)}
+                      className="w-full text-indigo-600 hover:text-indigo-800 font-medium underline transition-colors duration-200"
+                    >
+                      Create New Account
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setState('Reset Password')
+                        setResetStep(0)
+                        setResetEmail('')
+                        setResetOtp('')
+                        setResetNewPassword('')
+                      }}
+                      className="w-full text-blue-600 hover:text-blue-800 font-medium underline transition-colors duration-200 mt-2"
+                    >
+                      Forgot Password?
+                    </button>
+                  </>
+                )}
+              </form>
+            </>
+          ) : (
+            // Reset Password UI
+            <form onSubmit={resetStep === 0 ? handleSendOtp : handleResetPassword} className="space-y-5">
+              <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">Reset Password</h2>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                  required
+                  disabled={resetStep === 1}
+                />
+              </div>
+              {resetStep === 1 && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">OTP</label>
+                    <input
+                      type="text"
+                      placeholder="Enter OTP"
+                      value={resetOtp}
+                      onChange={(e) => setResetOtp(e.target.value)}
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                    <input
+                      type="password"
+                      placeholder="Enter new password"
+                      value={resetNewPassword}
+                      onChange={(e) => setResetNewPassword(e.target.value)}
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                      required
+                    />
+                  </div>
+                </>
+              )}
+              <button
+                type="submit"
+                className="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-indigo-600 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200"
+              >
+                {resetStep === 0 ? 'Send OTP' : 'Reset Password'}
+              </button>
               <button
                 type="button"
-                onClick={() => setShowSignUp(true)}
-                className="w-full text-indigo-600 hover:text-indigo-800 font-medium underline transition-colors duration-200"
+                onClick={() => {
+                  setState('Doctor')
+                  setResetStep(0)
+                  setResetEmail('')
+                  setResetOtp('')
+                  setResetNewPassword('')
+                }}
+                className="w-full py-2 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 mt-2"
               >
-                Create New Account
+                Go Back to Login
               </button>
-            )}
-          </form>
+            </form>
+          )}
         </div>
       ) : (
         <div className="w-full max-w-5xl bg-white rounded-2xl shadow-lg p-8">
